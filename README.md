@@ -3,6 +3,16 @@ Eventsourcerer
 
 This repository contains an exploration project on the subject of event-sourcing in Go(lang) and follows the pattern described in [CQRS + Event Sourcing – Step by Step](https://danielwhittaker.me/2020/02/20/cqrs-step-step-guide-flow-typical-application/).
 
+
+Banking example
+---------------
+
+Run the bank example
+
+    $ cd internal/example/bank
+    $ go run .
+
+
 Good reads
 ----------
 
