@@ -29,6 +29,10 @@ Good reads
 - [Event Sourcing with Spring Boot and Axon](https://www.novatec-gmbh.de/en/blog/event-sourcing-spring-boot-axon/)
 - [Other Matters](https://cqrs.nu/tutorial/cs/05-other-matters)
 - [My Journey into CQRS and Event Sourcing](https://medium.com/nexa-digital/my-journey-into-cqrs-and-event-sourcing-4bd7d0c1c670)
+- [Event Sourcing in Go](https://victoramartinez.com/posts/event-sourcing-in-go/)
+- [Event Sourcing with Go and Redis](https://dev.to/felixvo/event-sourcing-with-go-and-redis-56ba)
+- [Event Horizon a CQRS/ES toolkit for Go](https://github.com/looplab/eventhorizon)
+- [Building Microservices with Event Sourcing/CQRS in Go using gRPC, NATS Streaming and CockroachDB](https://shijuvar.medium.com/building-microservices-with-event-sourcing-cqrs-in-go-using-grpc-nats-streaming-and-cockroachdb-983f650452aa)
 
 https://github.com/ddd-crew
 https://github.com/ddd-crew/welcome-to-ddd
