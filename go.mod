@@ -1,4 +1,4 @@
-module github.com/christianschmizz/eventsourcerer
+module github.com/christianschmizz/go-eventsourcerer
 
 go 1.15
 
