@@ -54,12 +54,12 @@ func main() {
 	eventStore := CreateEventStore(publisher)
 	accountRepository := NewAccountRepository(eventStore)
 	accountCommandHandler := NewAccountCommandHandler(accountRepository)
-	boundedContext := es.CreateBoundedContext(accountCommandHandler, &ExternalEventHandler{})
+	banking := es.CreateBoundedContext(accountCommandHandler, &ExternalEventHandler{})
 
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		if err := boundedContext.Listen(ctx); err != nil {
+		if err := banking.Listen(ctx); err != nil {
 			panic(err)
 		}
 	}()
@@ -73,7 +73,7 @@ func main() {
 
 		{
 			// We issue our initial command for opening an account
-			boundedContext.Commands() <- OpenAccountCommand{
+			banking.Commands() <- OpenAccountCommand{
 				Username: fmt.Sprintf("Paul %d", x),
 			}
 			// As a consequence an AccountOpenedEvent is pusblished as soon as it
@@ -83,7 +83,7 @@ func main() {
 			accountNumber = accountOpenedEvent.Number
 		}
 		{
-			boundedContext.Commands() <- DepositMoneyCommand{
+			banking.Commands() <- DepositMoneyCommand{
 				AccountNumber:   accountNumber,
 				Amount:          50,
 				OriginalVersion: desc.Version,
@@ -91,13 +91,13 @@ func main() {
 			desc = <-publisher.C
 		}
 		{
-			boundedContext.Events() <- UnpaidDebtsThroughCreditorsReportedEvent{
+			banking.Events() <- UnpaidDebtsThroughCreditorsReportedEvent{
 				Number: accountNumber,
 			}
 			desc = <-publisher.C
 		}
 		{
-			boundedContext.Commands() <- WithdrawMoneyCommand{
+			banking.Commands() <- WithdrawMoneyCommand{
 				AccountNumber:   accountNumber,
 				Amount:          50,
 				OriginalVersion: desc.Version,
@@ -105,14 +105,14 @@ func main() {
 			// desc = <-publisher.C
 		}
 		{
-			boundedContext.Commands() <- UnfreezeAccountCommand{
+			banking.Commands() <- UnfreezeAccountCommand{
 				AccountNumber:   accountNumber,
 				OriginalVersion: desc.Version,
 			}
 			desc = <-publisher.C
 		}
 		{
-			boundedContext.Commands() <- DepositMoneyCommand{
+			banking.Commands() <- DepositMoneyCommand{
 				AccountNumber:   accountNumber,
 				Amount:          150,
 				OriginalVersion: desc.Version,
@@ -120,14 +120,14 @@ func main() {
 			desc = <-publisher.C
 		}
 		{
-			boundedContext.Commands() <- CloseAccountCommand{
+			banking.Commands() <- CloseAccountCommand{
 				AccountNumber:   accountNumber,
 				OriginalVersion: desc.Version,
 			}
 			// desc = <-publisher.C
 		}
 		{
-			boundedContext.Commands() <- WithdrawMoneyCommand{
+			banking.Commands() <- WithdrawMoneyCommand{
 				AccountNumber:   accountNumber,
 				Amount:          200,
 				OriginalVersion: desc.Version,
@@ -135,7 +135,7 @@ func main() {
 			desc = <-publisher.C
 		}
 		{
-			boundedContext.Commands() <- CloseAccountCommand{
+			banking.Commands() <- CloseAccountCommand{
 				AccountNumber:   accountNumber,
 				OriginalVersion: desc.Version,
 			}
