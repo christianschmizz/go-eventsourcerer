@@ -5,6 +5,8 @@ import "github.com/pkg/math"
 type AggregateID int
 type AggregateVersion int64
 
+// The Aggregate (Aggregate Root) is to control and encapsulate access
+// to it’s members in such a way as to protect it’s invariants.
 type Aggregate interface {
 	ID() AggregateID
 	Consume(event Event)
@@ -12,10 +14,13 @@ type Aggregate interface {
 	Replay(journal Journal)
 }
 
+// The BaseAggregate implements the basic structures for handling transient
+// events.
 type BaseAggregate struct {
 	Aggregate
 
-	// transientEvents keeps collection of all events which have not been written to the event-store
+	// transientEvents keeps collection of all events which have not been
+	// written to the event-store.
 	transientEvents []Event
 }
 

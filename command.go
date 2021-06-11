@@ -32,6 +32,7 @@ func NewCommandRejectedError(cmd Command, err error) CommandRejectedError {
 	}
 }
 
+// The BaseCommand is the foundation for every command
 type BaseCommand struct {
 }
 
@@ -39,6 +40,7 @@ func (bc BaseCommand) Reject(err error) error {
 	return NewCommandRejectedError(bc, err)
 }
 
+// The BaseCommandHandler is the foundation for a command handler
 type BaseCommandHandler struct {
 }
 
