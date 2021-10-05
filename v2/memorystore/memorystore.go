@@ -67,7 +67,9 @@ func (s *memoryEventStore) SaveJournal(id es2.AggregateID, journal es2.Journal, 
 		// Storing the event and its metadata in memory
 		s.events[id] = append(s.events[id], desc)
 
-		s.logger.Debug().Int64("aggregate_id", int64(id)).Int64("version", int64(version)).Msgf("event saved: %#v", item)
+		s.logger.Debug().Int64("aggregate_id", int64(id)).
+			Int64("version", int64(version)).
+			Msgf("event saved: %#v", item)
 
 		s.publisher.Publish(desc)
 	}

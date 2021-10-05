@@ -1,5 +1,6 @@
 package eventsourcerer
 
+// The EventApplicator applies an Event to the Aggregate
 type EventApplicator func(Event) error
 
 // The AggregateBase implements the basic structures for handling events.

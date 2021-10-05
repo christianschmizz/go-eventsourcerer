@@ -47,7 +47,6 @@ func (c *boundedContext) Listen(ctx context.Context) error {
 			c.eventHandler.Handle(ev, c.commandCh)
 		}
 	}
-	return nil
 }
 
 func (c *boundedContext) Commands() chan<- Command {

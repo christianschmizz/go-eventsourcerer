@@ -36,6 +36,7 @@ func NewCommandRejectedError(cmd Command, err error) CommandRejectedError {
 type BaseCommand struct {
 }
 
+// Reject issues a CommandRejectedError
 func (bc BaseCommand) Reject(err error) error {
 	return NewCommandRejectedError(bc, err)
 }
