@@ -1,0 +1,50 @@
+linters-settings:
+  revive:
+    ignore-generated-header: true
+    enable-all-rules: true
+    rules:
+      - name: argument-limit
+        disabled: true
+      - name: line-length-limit
+        severity: error
+        arguments: [120]
+      - name: unhandled-error
+        arguments : ["fmt.Printf", "myFunction"]
+      - name: cyclomatic
+        disabled: false
+        arguments: [3]
+      - name: file-header
+        disabled: true
+      - name: function-result-limit
+        arguments: [3]
+      - name: max-public-structs
+        disabled: true
+        arguments: [3]
+      - name: cognitive-complexity
+        arguments: [7]
+      - name: function-length
+        arguments: [10,0]
+  misspell:
+    locale: US
+
+linters:
+  disable-all: true
+  enable:
+    - typecheck
+    - goimports
+    - misspell
+    - govet
+    - revive
+    - ineffassign
+    - gosimple
+    - deadcode
+    - structcheck
+
+issues:
+  exclude-use-default: false
+  exclude:
+    - should have a package comment
+    - error strings should not be capitalized or end with punctuation or a newline
+
+service:
+  golangci-lint-version: 1.31.0 # use the fixed version to not introduce new linters unexpectedly
